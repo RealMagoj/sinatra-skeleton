@@ -1,12 +1,31 @@
-<h1><%= @message.title %></h1>
-
-<p>
-Author: <%= @message.author %>
-</p>
-
 <p>
   <%= @message.content %>
 </p>
 
+<p>
+  <a href="<%= @message.url %>"><%= @message.url %></a>
+</p>
+
+<p>
+  Message created at: <%= @message.created_at %>
+</p>
+
+<p><small>
+  Author: <%= @message.author %>
+</p></small>
 <hr/>
+
+<h3> Other messages from this author </h3>
+
+<% Message.where(author: @message.author).each do |message| %>
+  <div class="message">
+    <p>
+      <h3><a href="/messages/<%= message.id %>"><%= message.content %></a></h3>
+      <a href="<%= message.url %>"><%= message.url %></a>
+    </p>
+  </div>
+<% end %>
+
+<hr/>
+
 <a href="/messages">Back to ALL Messages</a>
